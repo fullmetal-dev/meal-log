@@ -1,0 +1,24 @@
+<h2 class="title">Agrega un nuevo menú</h2>
+
+<form [formGroup]="mealForm" (ngSubmit)="onSubmit()">
+
+    @if(showError){
+        <div class="errorContainer">
+            <p>Ambos campos son obligatorios.</p>
+        </div>
+    }
+
+    <label for="mealQuality">mealQuality: </label>
+    <select id="mealQuality" formControlName="mealQuality">
+        @for(currentQuality of mealQualities; track $index){
+            <option [ngValue]="currentQuality.value">{{ currentQuality.name }}</option>
+        }
+    </select>
+    <!-- <input id="mealQuality" type="text" formControlName="mealQuality"> -->
+
+    <label for="description">description: </label>
+    <textarea id="description" type="text" formControlName="description">
+    </textarea>
+    
+    <button type="submit">Enviar</button>
+</form>

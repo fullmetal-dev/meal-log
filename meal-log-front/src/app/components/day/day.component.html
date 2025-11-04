@@ -1,0 +1,53 @@
+<h2 class="title">
+    {{ day }} de {{ monthName }} de {{ year }}
+</h2>
+
+@for(current of currentDay.meals; track $index){
+    
+    <div class="meals-container" (click)="toggleSize($index)">
+        @if (current.mealQuality == -1) {
+            <div 
+                class="color-square bad"
+                [ngClass]="{'square-expanded': isExpanded($index)}">
+                <img 
+                    [ngClass]="{'img-shown': isExpanded($index)}"
+                    src="../../../assets/images/edit.png" 
+                    (click)="updateMeal($index, $event)"
+                    alt=""
+                    >
+            </div>
+        } @else if (current.mealQuality == 0) {
+            <div 
+                class="color-square medium"
+                [ngClass]="{'square-expanded': isExpanded($index)}">
+                <img 
+                    [ngClass]="{'img-shown': isExpanded($index)}"
+                    src="../../../assets/images/edit.png" 
+                    (click)="updateMeal($index, $event)"
+                    alt=""
+                    >
+            </div>
+        } @else {
+            <div 
+                class="color-square good"
+                [ngClass]="{'square-expanded': isExpanded($index)}">
+                <img 
+                    [ngClass]="{'img-shown': isExpanded($index)}"
+                    src="../../../assets/images/edit.png" 
+                    (click)="updateMeal($index, $event)"
+                    alt=""
+                    >
+            </div>
+        }
+
+        <div> {{ current.description }} </div>
+    </div>
+}
+
+@if(currentDay.meals.length === 0) {
+    <p style="text-align: center;">Aún no has registrado nada.</p>
+}
+
+<button class="add-meal" (click)="addNewMeal()">
+    +
+</button>
