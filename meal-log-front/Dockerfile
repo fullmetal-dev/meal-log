@@ -1,23 +1,11 @@
-FROM node:20 AS builder
-WORKDIR /app
+FROM node:20
 
-COPY package*.json ./
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+
+RUN npm install -g @angular/cli
 
 RUN npm install
 
-COPY . .
-
-RUN npm run build
-
-
-FROM node:20
-WORKDIR /app
-
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/package.json /app/package-lock.json ./
-
-RUN npm install --omit=dev
-
-EXPOSE 4200
-
-CMD ["npm", "start"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]
